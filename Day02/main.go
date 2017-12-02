@@ -42,7 +42,7 @@ func prob1() {
 		min, max := MinMax(numbers)
 		checksum += max - min
 	}
-	fmt.Printf("The checksum is %d \n", checksum)
+	fmt.Printf("The checksum for prob1 is %d \n", checksum)
 }
 
 func prob2() {
@@ -76,7 +76,7 @@ func prob2() {
 			checksum += res
 		}
 	}
-	fmt.Printf("The checksum is %d \n", checksum)
+	fmt.Printf("The checksum for prob2 is %d \n", checksum)
 }
 
 func dividesEvenly(array []int) (int, bool) {

@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func main() {
+func prob1() {
 	var checksum int
 
 	src, err := os.Open("./input.txt")

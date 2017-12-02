@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func main() {
+func prob2() {
 	dat, err := ioutil.ReadFile("./input.txt")
 	if err != nil {
 		panic(err)

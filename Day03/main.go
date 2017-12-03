@@ -9,19 +9,23 @@ func main() {
 	prob1()
 	prob2()
 }
+
 func prob1() {
-	input := 368078
-	var n int
+	input := 13.0
+	var side float64
 
-	base := math.Sqrt(368078)
-	if (int(math.Ceil(base)) % 2) == 0 {
-		n = int(base)
+	base := math.Ceil(math.Sqrt(input))
+	if (int(base) % 2) == 0 {
+		side = base + 1
 	} else {
-		n = int(math.Ceil(base))
+		side = base
 	}
-	distance := n*n - input
+	stepsCenter := (side - 1) / 2                      // Steps from center to cycle
+	offsetPrevCycle := input - (side-2)*(side-2)       // Offset from the start of the previous cycle
+	offsetCenter := int(offsetPrevCycle) % int(side-1) // Which side are we on and which element
+	distance := stepsCenter + math.Abs(float64(offsetCenter)-stepsCenter)
 
-	fmt.Printf("The input has a Manhattan distance of %d\n", distance)
+	fmt.Printf("The input has a Manhattan distance of %d \n", int(distance))
 }
 
 func prob2() {

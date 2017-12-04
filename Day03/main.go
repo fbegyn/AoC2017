@@ -3,12 +3,14 @@ package main
 import (
 	"fmt"
 	"math"
-	"os"
+	"time"
 )
 
 func main() {
+	start := time.Now()
 	prob1(368078.0)
 	prob2(368078)
+	fmt.Printf("Time elapsed for program %s\n", time.Since(start))
 }
 
 func prob1(input float64) {
@@ -45,13 +47,13 @@ func prob2(input uint64) {
 	direction := 0
 	larger := false
 
-	for lLimit < 11 || uLimit < 11 || rLimit < 11 || dLimit < 11 || !larger {
+	for lLimit < 11 || uLimit < 11 || rLimit < 11 || dLimit < 11 {
 		if direction == 0 {
 			for l := 0; l < lLimit; l++ {
 				j++
 				mask = *applyMask(&spiral, i, j)
 				sum := calcSum(&mask)
-				larger = checkSum(input, sum)
+				larger = checkSum(input, sum, &spiral)
 				spiral[i][j] = sum
 			}
 			lLimit++
@@ -62,7 +64,7 @@ func prob2(input uint64) {
 				i--
 				mask = *applyMask(&spiral, i, j)
 				sum := calcSum(&mask)
-				larger = checkSum(input, sum)
+				larger = checkSum(input, sum, &spiral)
 				spiral[i][j] = sum
 			}
 			uLimit++
@@ -73,7 +75,7 @@ func prob2(input uint64) {
 				j--
 				mask = *applyMask(&spiral, i, j)
 				sum := calcSum(&mask)
-				larger = checkSum(input, sum)
+				larger = checkSum(input, sum, &spiral)
 				spiral[i][j] = sum
 			}
 			rLimit++
@@ -84,12 +86,15 @@ func prob2(input uint64) {
 				i++
 				mask = *applyMask(&spiral, i, j)
 				sum := calcSum(&mask)
-				larger = checkSum(input, sum)
+				larger = checkSum(input, sum, &spiral)
 				spiral[i][j] = sum
 			}
 			dLimit++
 			uLimit++
 			direction = 0
+		}
+		if larger {
+			break
 		}
 	}
 }
@@ -123,10 +128,9 @@ func calcSum(mask *[][3]uint64) uint64 {
 	return sum
 }
 
-func checkSum(input uint64, sum uint64) bool {
+func checkSum(input uint64, sum uint64, spiral *[11][11]uint64) bool {
 	if sum > input {
 		fmt.Printf("Got bored and did it racefully. The first number that is larger then the input is %d\n", sum)
-		os.Exit(0)
 		return true
 	}
 	return false

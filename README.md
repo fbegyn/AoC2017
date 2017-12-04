@@ -5,8 +5,8 @@ My attempts at the advent of code 2017, written in Go.
 ## Challenges
 * Day 1: reverse captchas
 * Day 2: checksums
-* Day 3: ?
-* Day 4: ?
+* Day 3: spirals, spirals everywhere!
+* Day 4: Check passphrase for anagrams and doubles
 * Day 5: ?
 * Day 6: ?
 * Day 7: ?

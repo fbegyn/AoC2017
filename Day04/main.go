@@ -29,6 +29,7 @@ func prob1() {
 	defer src.Close()
 
 	scanner := bufio.NewScanner(src)
+	scanner.Split(bufio.ScanWords)
 
 	for scanner.Scan() {
 		line := scanner.Text()

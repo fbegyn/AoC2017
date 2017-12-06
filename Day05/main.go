@@ -31,7 +31,7 @@ func prob1() {
 		instructions = append(instructions, instr)
 	}
 
-	fmt.Printf("The operation took %d steps.\n", execInstr(&instructions, false))
+	go fmt.Printf("The operation took %d steps.\n", execInstr(&instructions, false))
 }
 
 func execInstr(instructions *[]int, prob2 bool) uint {
@@ -70,5 +70,5 @@ func prob2() {
 		instructions = append(instructions, instr)
 	}
 
-	fmt.Printf("The operation took %d steps.\n", execInstr(&instructions, true))
+	go fmt.Printf("The operation took %d steps.\n", execInstr(&instructions, true))
 }

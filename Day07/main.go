@@ -55,8 +55,8 @@ func main() {
 	}
 	findLinks(stack)
 	lowest := findRoot(stack)
-	fmt.Printf("The root program is %q with weight %d.\n\n", lowest.name, lowest.weight)
-	outl, norm := findInBalance(stack)
+	fmt.Printf("The root program is %q with weight %d.\n", lowest.name, lowest.weight)
+	outl, norm := findInBalance(stack, lowest)
 	fmt.Printf("The sub-tower should weigh %d.\n", outl.weight-(outl.determineWeight()-norm.determineChildWeight()))
 }
 
@@ -75,7 +75,7 @@ func findLinks(stack []*Program) {
 }
 
 func findRoot(stack []*Program) *Program {
-	root := stack[0]
+	root := &Program{}
 	for _, prog := range stack {
 		if !prog.isChild(stack) {
 			root = prog
@@ -84,8 +84,7 @@ func findRoot(stack []*Program) *Program {
 	return root
 }
 
-func findInBalance(stack []*Program) (*Program, *Program) {
-	root := findRoot(stack)
+func findInBalance(stack []*Program, root *Program) (*Program, *Program) {
 	var outl *Program
 	var normal *Program
 	var parentOutl *Program

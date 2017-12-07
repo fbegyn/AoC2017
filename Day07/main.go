@@ -62,7 +62,6 @@ func prob1() {
 	lowest := findRoot(stack)
 	fmt.Printf("The root program is %q with weight %d.\n\n", lowest.name, lowest.weight)
 	outl, norm := findInBalance(stack)
-	fmt.Printf("The outlier node is %v.\n", outl)
 	fmt.Printf("The sub-tower should weigh %d.\n", outl.weight-(outl.determineWeight()-norm.determineChildWeight()))
 }
 
@@ -97,16 +96,10 @@ func findInBalance(stack []*Program) (*Program, *Program) {
 	var parentOutl *Program
 	var parentNorm *Program
 	outl, normal = root.getOutlier()
-	fmt.Printf("Outlier: %v\n", outl)
-	fmt.Printf("Normal: %v\n", normal)
-	fmt.Println()
 	for outl != nil {
 		parentNorm = normal
 		parentOutl = outl
 		outl, normal = parentOutl.getOutlier()
-		fmt.Printf("Outlier: %v\n", outl)
-		fmt.Printf("Normal: %v\n", normal)
-		fmt.Println()
 	}
 	return parentOutl, parentNorm
 }
@@ -121,7 +114,6 @@ func (p *Program) getOutlier() (*Program, *Program) {
 	for _, el := range w {
 		freq[el]++
 	}
-	fmt.Println(freq)
 	for k, v := range freq {
 		if v == 1 {
 			outlier = k
@@ -159,15 +151,10 @@ func (p *Program) isChild(stack []*Program) bool {
 }
 
 func (p *Program) weightVector() []uint {
-	fmt.Printf("calculating: %v\n", p)
-	for _, ch := range p.link {
-		fmt.Printf("Children: %v \n", ch)
-	}
 	var w []uint
 	for _, child := range p.link {
 		w = append(w, child.determineWeight())
 	}
-	fmt.Printf("Weight vector: %v\n", w)
 	return w
 }
 

@@ -54,14 +54,10 @@ func main() {
 		}
 	}
 	findLinks(stack)
-	go func() {
-		lowest := findRoot(stack)
-		fmt.Printf("The root program is %q with weight %d.\n\n", lowest.name, lowest.weight)
-	}()
-	go func() {
-		outl, norm := findInBalance(stack)
-		fmt.Printf("The sub-tower should weigh %d.\n", outl.weight-(outl.determineWeight()-norm.determineChildWeight()))
-	}()
+	lowest := findRoot(stack)
+	fmt.Printf("The root program is %q with weight %d.\n\n", lowest.name, lowest.weight)
+	outl, norm := findInBalance(stack)
+	fmt.Printf("The sub-tower should weigh %d.\n", outl.weight-(outl.determineWeight()-norm.determineChildWeight()))
 }
 
 func findLinks(stack []*Program) {

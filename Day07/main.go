@@ -127,13 +127,6 @@ func (p *Program) getOutlier() (*Program, *Program) {
 	return outl, norm
 }
 
-func (p *Program) isTop() bool {
-	if len(p.link) <= 0 || len(p.subProg) <= 0 {
-		return true
-	}
-	return false
-}
-
 func (p *Program) isChild(stack []*Program) bool {
 	for _, prog := range stack {
 		for _, link := range prog.link {
@@ -169,13 +162,4 @@ func (p *Program) determineChildWeight() uint {
 		sum += child.determineWeight()
 	}
 	return sum
-}
-
-func (p *Program) isParent(p2 *Program) bool {
-	for _, child := range p.link {
-		if child == p2 {
-			return true
-		}
-	}
-	return false
 }

@@ -7,9 +7,9 @@ My attempts at the advent of code 2017, written in Go.
 * Day 2: checksums
 * Day 3: spirals, spirals everywhere!
 * Day 4: Check passphrase for anagrams and doubles
-* Day 5: ?
-* Day 6: ?
-* Day 7: ?
+* Day 5: Jump instructions
+* Day 6: Memory bank control (balancing numbers)
+* Day 7: Balancing programs (list operations)
 * Day 8: ?
 * Day 9: ?
 * Day 10: ?

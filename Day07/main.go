@@ -16,11 +16,6 @@ type Program struct {
 }
 
 func main() {
-	prob1()
-	prob2()
-}
-
-func prob1() {
 	f, err := os.Open("./input.txt")
 	if err != nil {
 		panic(err)
@@ -59,10 +54,14 @@ func prob1() {
 		}
 	}
 	findLinks(stack)
-	lowest := findRoot(stack)
-	fmt.Printf("The root program is %q with weight %d.\n\n", lowest.name, lowest.weight)
-	outl, norm := findInBalance(stack)
-	fmt.Printf("The sub-tower should weigh %d.\n", outl.weight-(outl.determineWeight()-norm.determineChildWeight()))
+	go func() {
+		lowest := findRoot(stack)
+		fmt.Printf("The root program is %q with weight %d.\n\n", lowest.name, lowest.weight)
+	}()
+	go func() {
+		outl, norm := findInBalance(stack)
+		fmt.Printf("The sub-tower should weigh %d.\n", outl.weight-(outl.determineWeight()-norm.determineChildWeight()))
+	}()
 }
 
 func findLinks(stack []*Program) {
@@ -183,8 +182,4 @@ func (p *Program) isParent(p2 *Program) bool {
 		}
 	}
 	return false
-}
-
-func prob2() {
-
 }

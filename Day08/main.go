@@ -19,20 +19,13 @@ func main() {
 	bank := make(map[string]int)
 	var highest int
 	var phrase []string
+	var reg, a string
 
 	for scanner.Scan() {
 		phrase = strings.Split(scanner.Text(), " ")
 
-		reg := phrase[0]
-		amount, err := strconv.Atoi(phrase[2])
-		if err != nil {
-			panic(err)
-		}
-		if phrase[1] == "dec" {
-			amount *= -1
-		}
-		a := phrase[4]
-		comp := phrase[5]
+		reg = phrase[0]
+		a = phrase[4]
 		b, err := strconv.Atoi(phrase[6])
 		if err != nil {
 			panic(err)
@@ -40,7 +33,7 @@ func main() {
 
 		var w bool
 
-		switch comp {
+		switch phrase[5] {
 		case "<":
 			w = bank[a] < b
 		case ">":
@@ -56,12 +49,21 @@ func main() {
 		}
 
 		if w {
+			amount, err := strconv.Atoi(phrase[2])
+			if err != nil {
+				panic(err)
+			}
+			if phrase[1] == "dec" {
+				amount *= -1
+			}
+
 			bank[reg] += amount
+
+			if highest < bank[reg] {
+				highest = bank[reg]
+			}
 		}
 
-		if highest < bank[reg] {
-			highest = bank[reg]
-		}
 	}
 
 	var largest int

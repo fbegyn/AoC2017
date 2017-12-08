@@ -18,24 +18,18 @@ func main() {
 	scanner := bufio.NewScanner(f)
 	bank := make(map[string]int)
 	var highest int
+	var phrase []string
 
 	for scanner.Scan() {
-		line := scanner.Text()
-		line = strings.Replace(line, ",", "", -1)
-		var phrase []string
-		linescan := bufio.NewScanner(strings.NewReader(line))
-		linescan.Split(bufio.ScanWords)
-
-		for linescan.Scan() {
-			word := linescan.Text()
-			phrase = append(phrase, word)
-		}
+		phrase = strings.Split(scanner.Text(), " ")
 
 		reg := phrase[0]
-		op := phrase[1]
 		amount, err := strconv.Atoi(phrase[2])
 		if err != nil {
 			panic(err)
+		}
+		if phrase[1] == "dec" {
+			amount *= -1
 		}
 		a := phrase[4]
 		comp := phrase[5]
@@ -44,60 +38,29 @@ func main() {
 			panic(err)
 		}
 
+		var w bool
+
 		switch comp {
 		case "<":
-			if bank[a] < b {
-				if op == "inc" {
-					bank[reg] += amount
-				} else if op == "dec" {
-					bank[reg] -= amount
-				}
-			}
+			w = bank[a] < b
 		case ">":
-			if bank[a] > b {
-				if op == "inc" {
-					bank[reg] += amount
-				} else if op == "dec" {
-					bank[reg] -= amount
-				}
-			}
+			w = bank[a] > b
 		case "<=":
-			if bank[a] <= b {
-				if op == "inc" {
-					bank[reg] += amount
-				} else if op == "dec" {
-					bank[reg] -= amount
-				}
-			}
+			w = bank[a] <= b
 		case ">=":
-			if bank[a] >= b {
-				if op == "inc" {
-					bank[reg] += amount
-				} else if op == "dec" {
-					bank[reg] -= amount
-				}
-			}
+			w = bank[a] >= b
 		case "==":
-			if bank[a] == b {
-				if op == "inc" {
-					bank[reg] += amount
-				} else if op == "dec" {
-					bank[reg] -= amount
-				}
-			}
+			w = bank[a] == b
 		case "!=":
-			if bank[a] != b {
-				if op == "inc" {
-					bank[reg] += amount
-				} else if op == "dec" {
-					bank[reg] -= amount
-				}
-			}
+			w = bank[a] != b
 		}
-		for _, v := range bank {
-			if highest < v {
-				highest = v
-			}
+
+		if w {
+			bank[reg] += amount
+		}
+
+		if highest < bank[reg] {
+			highest = bank[reg]
 		}
 	}
 
@@ -107,6 +70,7 @@ func main() {
 			largest = v
 		}
 	}
+
 	fmt.Printf("The largest register is %d.\n", largest)
 	fmt.Printf("The largest register during process is %d.\n", highest)
 }

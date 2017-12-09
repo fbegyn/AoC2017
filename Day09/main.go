@@ -13,34 +13,32 @@ func main() {
 	var value, score, countGarbage, garbage uint
 	for i := 0; i < len(f); i++ {
 		ch := f[i]
-		if ch == '!' {
+		switch ch {
+		case '{':
+			if garbage == 0 {
+				value++
+			} else if garbage == 1 {
+				countGarbage++
+			}
+		case '}':
+			if garbage == 0 {
+				score += value
+				value--
+			} else if garbage == 1 {
+				countGarbage++
+			}
+		case '<':
+			if garbage == 1 {
+				countGarbage++
+			}
+			garbage = 1
+		case '>':
+			garbage = 0
+		case '!':
 			i++
-		} else {
-			switch ch {
-			case '{':
-				if garbage == 0 {
-					value++
-				} else if garbage == 1 {
-					countGarbage++
-				}
-			case '}':
-				if garbage == 0 {
-					score += value
-					value--
-				} else if garbage == 1 {
-					countGarbage++
-				}
-			case '<':
-				if garbage == 1 {
-					countGarbage++
-				}
-				garbage = 1
-			case '>':
-				garbage = 0
-			default:
-				if garbage == 1 {
-					countGarbage++
-				}
+		default:
+			if garbage == 1 {
+				countGarbage++
 			}
 		}
 	}

@@ -1,57 +1,48 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
+	"io/ioutil"
 )
 
 func main() {
-	f, err := os.Open("./input.txt")
+	f, err := ioutil.ReadFile("./input.txt")
 	if err != nil {
 		panic(err)
 	}
-	defer f.Close()
-
-	var value, score, countGarbage uint
-	garbage := false
-	scanner := bufio.NewScanner(f)
-
-	for scanner.Scan() {
-		line := scanner.Text()
-		//line := "<!!!>>"
-		for i := 0; i < len(line); i++ {
-			ch := line[i]
+	var value, score, countGarbage, garbage uint
+	for i := 0; i < len(f); i++ {
+		ch := f[i]
+		if ch == '!' {
+			i++
+		} else {
 			switch ch {
 			case '{':
-				if !garbage {
+				if garbage == 0 {
 					value++
-				} else if garbage {
+				} else if garbage == 1 {
 					countGarbage++
 				}
 			case '}':
-				if !garbage {
+				if garbage == 0 {
 					score += value
 					value--
-				} else if garbage {
+				} else if garbage == 1 {
 					countGarbage++
 				}
 			case '<':
-				if garbage {
+				if garbage == 1 {
 					countGarbage++
 				}
-				garbage = true
+				garbage = 1
 			case '>':
-				garbage = false
-			case '!':
-				i++
+				garbage = 0
 			default:
-				if garbage {
+				if garbage == 1 {
 					countGarbage++
 				}
 			}
 		}
 	}
-	fmt.Printf("The total score is %d\n", score)
-	fmt.Printf("The total amount of garbage characters is %d\n", countGarbage)
+	fmt.Printf("The total score is %d and the amount of garbage char is %d\n", score, countGarbage)
 }

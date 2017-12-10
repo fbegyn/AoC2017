@@ -47,6 +47,7 @@ func prob2(list []int) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	chars = chars[:len(chars)-1]
 	sequence := make([]int, len(chars))
 	for i, ch := range chars {
 		sequence[i] = int(ch)
@@ -64,35 +65,42 @@ func prob2(list []int) {
 	fmt.Println()
 }
 
-func mod(number int, length int) int {
-	if number < 0 {
-		return mod(length+number, length)
-	} else {
-		return number % length
+func reverse(a []int) {
+	for i := len(a)/2 - 1; i >= 0; i-- {
+		opp := len(a) - 1 - i
+		a[i], a[opp] = a[opp], a[i]
 	}
 }
 
-func reverse(list []int, start int, stop int, length int) {
-	copyList := make([]int, len(list))
-	copy(copyList, list)
-	for i := 0; i < length; i++ {
-		index1 := mod(start+i, len(list))
-		index2 := mod(stop-i, len(list))
-		list[index1] = copyList[index2]
-	}
-}
-
-func hash(list []int, inputLengths []int, numberRounds int) {
-	start := 0
-	skipSize := 0
-	for i := 0; i < numberRounds; i++ {
-		for _, length := range inputLengths {
-			startInvert := (start) % len(list)
-			endInvert := (start + length - 1) % len(list)
-			reverse(list, startInvert, endInvert, length)
-			start += length + skipSize
+func hash(list []int, sequence []int, rounds int) {
+	var skipSize, selector, start, stop int
+	llength := len(list)
+	for r := 0; r < rounds; r++ {
+		for _, s := range sequence {
+			start = selector % llength
+			stop = (selector + s) % llength
+			if s == 1 {
+			} else if s == llength {
+				slice := list[:]
+				reverse(slice)
+				copy(list, slice)
+			} else {
+				if start > stop {
+					x := len(list[start:])
+					slice := append(list[start:], list[:stop]...)
+					reverse(slice)
+					copy(list[start:], slice[:x])
+					copy(list[:stop], slice[x:])
+				} else {
+					slice := list[start:stop]
+					reverse(slice)
+					copy(list[start:stop], slice)
+				}
+			}
+			selector += s
+			selector += skipSize
+			selector %= llength
 			skipSize++
 		}
 	}
-
 }

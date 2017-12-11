@@ -10,10 +10,10 @@ My attempts at the advent of code 2017, written in Go.
 * Day 5: Jump instructions
 * Day 6: Memory bank control (balancing numbers)
 * Day 7: Balancing programs (list operations)
-* Day 8: ?
-* Day 9: ?
-* Day 10: ?
-* Day 11: ?
+* Day 8: Register operations
+* Day 9: Strean processing
+* Day 10: Knot hashing (fucking carriage return)
+* Day 11: Hexagon grid management
 * Day 12: ?
 * Day 13: ?
 * Day 14: ?

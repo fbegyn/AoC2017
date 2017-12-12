@@ -66,9 +66,9 @@ func getMap(pipes *map[int][]int, key int) (*map[int]bool, bool) {
 }
 
 func setLinks(set *map[int]bool, pipes *map[int][]int, key int) bool {
-	if _, ok := (*pipes)[key]; ok {
+	if val, ok := (*pipes)[key]; ok {
 		(*set)[key] = true
-		for _, el := range (*pipes)[key] {
+		for _, el := range val {
 			if !(*set)[el] {
 				setLinks(set, pipes, el)
 			}

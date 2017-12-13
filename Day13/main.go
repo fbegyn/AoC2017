@@ -21,13 +21,11 @@ func main() {
 		line = scanner.Text()
 		var tmpInt [2]int
 		for i, el := range strings.Split(line, ": ") {
-
 			num, err := strconv.Atoi(el)
 			if err != nil {
 				log.Fatal(err)
 			}
 			tmpInt[i] = num
-
 		}
 		store[tmpInt[0]] = tmpInt[1]
 	}

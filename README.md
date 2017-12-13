@@ -15,7 +15,7 @@ My attempts at the advent of code 2017, written in Go.
 * Day 10: Knot hashing (fucking carriage return)
 * Day 11: Hexagon grid management
 * Day 12: Grouping linked objects
-* Day 13: ?
+* Day 13: Firewall scanners
 * Day 14: ?
 * Day 15: ?
 * Day 16: ?

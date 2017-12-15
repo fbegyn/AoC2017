@@ -16,8 +16,8 @@ My attempts at the advent of code 2017, written in Go.
 * Day 11: Hexagon grid management
 * Day 12: Grouping linked objects
 * Day 13: Firewall scanners
-* Day 14: ?
-* Day 15: ?
+* Day 14: Disk defragmentation
+* Day 15: Generator bitwise comparrison
 * Day 16: ?
 * Day 17: ?
 * Day 18: ?

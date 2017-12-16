@@ -18,7 +18,7 @@ My attempts at the advent of code 2017, written in Go.
 * Day 13: Firewall scanners
 * Day 14: Disk defragmentation
 * Day 15: Generator bitwise comparrison
-* Day 16: ?
+* Day 16: Dancing programs
 * Day 17: ?
 * Day 18: ?
 * Day 19: ?

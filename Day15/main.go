@@ -3,8 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	ch1 := make(chan uint)
-	ch2 := make(chan uint)
+	ch1, ch2 := make(chan uint, 64), make(chan uint, 64)
 	const facA uint = 16807
 	const facB uint = 48271
 	const div uint = 2147483647
@@ -26,7 +25,7 @@ func main() {
 		}
 	}
 	go func() {
-		for i := range resA {
+		for i := 0; i < 40e6; i++ {
 			a := resA[i] & 0xffff
 			b := resB[i] & 0xffff
 			if a == b {
